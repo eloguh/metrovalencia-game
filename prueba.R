@@ -10,4 +10,5 @@ leaflet() %>%
   addProviderTiles(provider = "CartoDB.PositronNoLabels") %>%  
   addPolylines(data = lineas, color = ~color) %>% 
   addCircleMarkers(data = estaciones, lat = ~lat, lng = ~lng,
-                   popup = ~nombre, color = "gray", fillColor = "white", fillOpacity = 1, radius = 6, weight = 2)
+                   popup = ~nombre, color = "gray", fillColor = "white",
+                   fillOpacity = 1, radius = 6, weight = 2)

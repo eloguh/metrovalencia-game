@@ -231,7 +231,8 @@ lineas_final$geometry <- st_cast(lineas_final$geometry, "LINESTRING")
 
 # Ahora intenta convertir a objeto sf
 lineas_final_sf <- st_as_sf(lineas_final) %>% 
-  mutate(color = paste0("#", color))
+  mutate(color = paste0("#", color)) %>% 
+  st_set_crs(4326)
 ```
 
 
