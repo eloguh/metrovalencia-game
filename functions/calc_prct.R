@@ -9,7 +9,7 @@ line_prct <- function(aciertos){
   prct_aciertos <- c()
   n_aciertos <- c()
   
-  N_ESTACIONES_POR_LINEA <- c(40, 33, 26, 33, 18, 21, 16, 4, 23, 8)
+  N_ESTACIONES_POR_LINEA <- c(40, 33, 27, 33, 18, 21, 16, 4, 23, 8)
   N_LINEAS <- 10
   
   for (i in 1:N_LINEAS){
