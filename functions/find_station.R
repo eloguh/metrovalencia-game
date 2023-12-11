@@ -2,22 +2,7 @@ library(stringdist)
 library(stringi)
 library(stringr)
 
-#This is the file where we have every station
-# lineas <- readLines("./functions/EstacionsMV.txt", encoding = "UTF-8")
-lineas <- estaciones$nombre
-limit_lineas <- length(lineas)
-#Add some extraordinary names
-extraordinary <- c("Plaza de Patraix", "Marítim - Serreria", "Facultats", "Plaça del Tossal",
-                   "Palmaret", "Peris Aragó", "Campanar - La Fe")
-correspondence <- c("Estació de Patraix",
-                    "Estació de Marítim",
-                    "Estació de Facultats - Manuel Broseta",
-                    "Estació de Tossal del Rei",
-                    "Estació d'Alboraia Palmaret",
-                    "Estació d'Alboraia Peris Aragó",
-                    "Estació de Campanar")
-lineas <- c(lineas, extraordinary)
-
+#### Helper functions
 #Change or erase the prepositions, linking words, numbers and urbanistic words
 comodin_words <- function(texto){
   buscar <- c(0:9,"Zero", "Un", "Dos", "Tres", "Quatre", "Cinc", "Sis", "Set", "Vuit",
@@ -25,12 +10,12 @@ comodin_words <- function(texto){
               "Calle", "Rambla","Estación ", "Estació ","Estacion ","Estacio ",
               "d'","fonteta ","Fonteta ","Fuente ", "Font ", "font ", "fuente ",
               "del ", "dels ", "de ", "dE ", "(?<![[:alpha:]])el ", "la ", "los ", "las ", "les ", "els ",
-              "C ", "C/", "y ", " - ", "l'", "L'")
+              "C ", "C/", "y ", " - ", "l'", "L'", "l·l")
   reemplazar <- c("Cero ", "Uno ", "Dos ", "Tres ", "Cuatro ", "Cinco ", "Seis ", "Siete ", "Ocho ", "Nueve ",
                   "Cero ", "Uno ", "Dos ", "Tres ", "Cuatro ", "Cinco ", "Seis ", "Siete ", "Ocho ","Ocho ","Ocho ", "Nueve ",
                   "Pl ", "Pl ", "Av ","Av ","Av ","Av ", "n", "Ayto ", "", "Rbla ", "","","",
                   "", "", "Fte ", "Fte ","Fte ", "Fte ","Fte ", "Fte ","","", "","",
-                  "","","","","","","","", "","-","", "")
+                  "","","","","","","","", "","-","", "", "l")
 
   for (i in seq_along(buscar)) {
     texto <- str_replace_all(texto, regex(buscar[i], ignore_case = TRUE), reemplazar[i])
@@ -59,25 +44,26 @@ find_coincidence <- function(left, right){
   num_search = length(right)
   aprox <- stringdist(left, right, method = "dl")
   best <- which.min(aprox)
-  if (aprox[best] < 3){
+  if (aprox[best] <= 1){
     return(best)
   }
   return(FALSE)
 }
 
-stations_rebuilt <- formal_text(lineas)
-
-finding_station <- function(){
-  input <- readline("Estacion: ")
+#### Finding function
+find_station <- function(input){
+  lineas <- estaciones$nombre
+  limit_lineas <- length(lineas)
   input_rebuilt <- formal_text(input)
-  coincide <- find_coincidence(input_rebuilt,stations_rebuilt)
+  stations_rebuilt <- formal_text(lineas)
+  
+  coincide <- find_coincidence(input_rebuilt, stations_rebuilt)
   if (is.numeric(coincide)){
     if (coincide > limit_lineas){
       good_coincide <- coincide - limit_lineas
-      return(correspondence[good_coincide])
+      return(coincide[good_coincide])
     }
-    return(lineas[coincide])
+    return(coincide)
   }
-  return("No existe esa estacion")
+  return(-99)
 }
-finding_station()
