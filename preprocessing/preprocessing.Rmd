@@ -1,0 +1,248 @@
+---
+title: "Preprocessing"
+output: html_document
+date: "2023-11-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(jsonlite)
+library(stringr)
+library(dplyr)
+library(rvest)
+library(openxlsx)
+library(sf)
+library(tidyr)
+
+```
+
+
+
+```{r cars}
+data <- fromJSON("../data/raw_data.txt")
+```
+
+#----------------------------------------------------------
+# ESTACIONES
+
+```{r}
+lineas_estaciones <- list()
+
+for (linea in data$infoEstaciones$lineas){
+  if (length(linea[["id"]]) == 1){
+     lineas_estaciones <- append(lineas_estaciones, linea[["id"]])
+  }
+  else {
+    lineas_estaciones <- append(lineas_estaciones, paste0(linea[["id"]], collapse = ","))
+  }
+}
+
+```
+
+
+```{r}
+id <- data.frame(data$infoEstaciones$id)
+nombre <- data.frame(data$infoEstaciones$nombre)
+lineas <- data.frame(t(data.frame(lineas_estaciones)))
+lat <- data.frame(data$estaciones$lat)
+lng <- data.frame(data$estaciones$lng)
+
+imagen <- data.frame(Columna = rep("imagen", 143))
+desc <- data.frame(Columna = rep("desc", 143))
+
+```
+
+
+
+```{r}
+estaciones_df <- data.frame(
+  id ,
+  nombre,
+  lineas,
+  imagen,
+  desc,
+  lat,
+  lng
+  
+)
+
+rownames(estaciones_df) <- NULL
+colnames(estaciones_df) <- c("id", "nombre", "lineas","imagen","descripción" ,"lat", "lng")
+```
+
+#---------------------------------------------------------------------
+
+Líneas
+
+```{r}
+lc <- data.frame(t(data.frame(data$coloresLineas)))
+
+lineas_colores <- unique(data.frame(t(data.frame(data$coloresLineas))))
+
+colnames(lineas_colores) <- "color"
+```
+
+
+```{r}
+geometria_linea_1 <- data.frame(data$lineas[[1]]) %>% 
+  select(lng, lat)
+g1 <- st_sfc(st_multipoint(as.matrix(geometria_linea_1)))
+
+```
+
+
+```{r}
+geometria_linea_2 <- data.frame(data$lineas[[2]]) %>% 
+  select(lng, lat)
+g2 <- st_sfc(st_multipoint(as.matrix(geometria_linea_2)))
+
+```
+
+
+```{r}
+geometria_linea_3 <- data.frame(data$lineas[[3]]) %>% 
+  select(lng, lat)
+g3 <- st_sfc(st_multipoint(as.matrix(geometria_linea_3)))
+
+```
+
+
+```{r}
+geometria_linea_4 <- rbind(data.frame(data$lineas[[4]]), data.frame(data$lineas[[5]]), data.frame(data$lineas[[6]]), data.frame(data$lineas[[7]]), data.frame(data$lineas[[8]]), data.frame(data$lineas[[9]]), data.frame(data$lineas[[10]])) %>% 
+  select(lng, lat)
+g4 <- st_sfc(st_multipoint(as.matrix(geometria_linea_4)))
+
+```
+
+
+```{r}
+geometria_linea_5 <- data.frame(data$lineas[[5]]) %>% 
+  select(lng, lat)
+g5 <- st_sfc(st_multipoint(as.matrix(geometria_linea_5)))
+
+```
+
+
+```{r}
+geometria_linea_6 <- rbind(data.frame(data$lineas[[12]]), data.frame(data$lineas[[13]]), data.frame(data$lineas[[14]]), data.frame(data$lineas[[15]])) %>% 
+  select(lng, lat)
+g6 <- st_sfc(st_multipoint(as.matrix(geometria_linea_6)))
+
+```
+
+
+```{r}
+geometria_linea_7 <- data.frame(data$lineas[[16]]) %>% 
+  select(lng, lat)
+g7 <- st_sfc(st_multipoint(as.matrix(geometria_linea_7)))
+
+```
+
+
+```{r}
+geometria_linea_8 <- data.frame(data$lineas[[17]]) %>% 
+  select(lng, lat)
+g8 <- st_sfc(st_multipoint(as.matrix(geometria_linea_8)))
+```
+
+
+```{r}
+geometria_linea_9 <- data.frame(data$lineas[[18]]) %>% 
+  select(lng, lat)
+g9 <- st_sfc(st_multipoint(as.matrix(geometria_linea_9)))
+
+```
+
+
+```{r}
+geometria_linea_10 <- data.frame(data$lineas[[19]]) %>% 
+  select(lng, lat)
+g10 <- st_sfc(st_multipoint(as.matrix(geometria_linea_10)))
+
+```
+
+
+```{r}
+lista_geometrias <- list(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10)
+
+```
+
+
+```{r}
+lineas <- data.frame(lista_geometrias)
+
+lineas_t <- lineas %>%
+  pivot_longer(starts_with("geometry"), names_to = "ID_Geometria", values_to = "geometry") %>%
+  select(-ID_Geometria)  # Opcional, para quitar la columna de nombres
+
+
+# for (i in 1:10){
+#   
+#   df_g <- t(lista_geometrias[[i]])
+#   
+# 
+#   filas_como_cadenas <- apply(df_g, 1, function(x) paste(x, collapse = ","))
+# 
+#   g <- data.frame(t(filas_como_cadenas))
+#   
+#   lineas <- bind_rows(lineas, g)
+# 
+# }
+
+colnames(lineas) <- NULL
+
+```
+
+```{r}
+l <- data.frame(Valores = 1:10)
+colnames(l) <- "Línea"
+
+```
+
+#wikipedia:
+
+```{r}
+url <- "https://es.wikipedia.org/wiki/Metrovalencia#Las_l%C3%ADneas"
+
+tabla <- url %>%
+  read_html() %>%
+  html_nodes("table") %>%
+  .[[2]] %>%
+  html_table(fill = TRUE)
+
+wiki <- data.frame(tabla)
+
+wiki <- wiki[1:10, c(2,3,4,5,6, 7)]
+
+nuevos_nombres <- c(colnames(wiki)[1], "Cabeceras_2", "Tipo",colnames(wiki)[4], "KM", "viajeros(2019)")
+
+colnames(wiki) <- nuevos_nombres
+```
+
+#lineas final:
+
+```{r}
+lineas_final <- data.frame(l, lineas_colores, wiki, lineas_t)
+
+row.names(lineas_final) <- NULL
+
+lineas_final$geometry <- st_cast(lineas_final$geometry, "LINESTRING")
+
+# Ahora intenta convertir a objeto sf
+lineas_final_sf <- st_as_sf(lineas_final) %>% 
+  mutate(color = paste0("#", color))
+```
+
+
+#descarga:
+
+```{r}
+path_estaciones <- "../data/estaciones.xlsx"
+
+write.xlsx(estaciones_df, file = path_estaciones, rowNames = FALSE)
+
+path_lineas <- "../data/lineas/lineas.shp"
+
+st_write(lineas_final_sf, path_lineas)
+```
