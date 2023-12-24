@@ -78,93 +78,182 @@ Líneas
 ```{r}
 lc <- data.frame(t(data.frame(data$coloresLineas)))
 
-lineas_colores <- unique(data.frame(t(data.frame(data$coloresLineas))))
+lineas_colores <- data.frame(t(data.frame(data$coloresLineas)))
 
 colnames(lineas_colores) <- "color"
 ```
 
 
 ```{r}
-geometria_linea_1 <- data.frame(data$lineas[[1]]) %>% 
-  select(lng, lat)
+geometria_linea_1 <- data.frame(data$lineas[[1]])
+
+nuevo_orden <- c("lng", "lat")
+
+geometria_linea_1 <- geometria_linea_1 %>% select(nuevo_orden)
+
 g1 <- st_sfc(st_multipoint(as.matrix(geometria_linea_1)))
 
 ```
 
 
 ```{r}
-geometria_linea_2 <- data.frame(data$lineas[[2]]) %>% 
-  select(lng, lat)
+geometria_linea_2 <- data.frame(data$lineas[[2]])
+
+geometria_linea_2 <- geometria_linea_2 %>% select(nuevo_orden)
+
 g2 <- st_sfc(st_multipoint(as.matrix(geometria_linea_2)))
 
 ```
 
 
 ```{r}
-geometria_linea_3 <- data.frame(data$lineas[[3]]) %>% 
-  select(lng, lat)
+geometria_linea_3 <- data.frame(data$lineas[[3]])
+
+geometria_linea_3 <- geometria_linea_3 %>% select(nuevo_orden)
+
 g3 <- st_sfc(st_multipoint(as.matrix(geometria_linea_3)))
 
 ```
 
 
 ```{r}
-geometria_linea_4 <- rbind(data.frame(data$lineas[[4]]), data.frame(data$lineas[[5]]), data.frame(data$lineas[[6]]), data.frame(data$lineas[[7]]), data.frame(data$lineas[[8]]), data.frame(data$lineas[[9]]), data.frame(data$lineas[[10]])) %>% 
-  select(lng, lat)
-g4 <- st_sfc(st_multipoint(as.matrix(geometria_linea_4)))
+geometria_linea_41 <- data.frame(data$lineas[[4]])
+
+geometria_linea_41 <- geometria_linea_41 %>% select(nuevo_orden)
+
+g41 <- st_sfc(st_multipoint(as.matrix(geometria_linea_41)))
+
+
+geometria_linea_42 <- data.frame(data$lineas[[5]])
+
+geometria_linea_42 <- geometria_linea_42 %>% select(nuevo_orden)
+
+g42 <- st_sfc(st_multipoint(as.matrix(geometria_linea_42)))
+
+
+geometria_linea_43 <- data.frame(data$lineas[[6]])
+
+geometria_linea_43 <- geometria_linea_43 %>% select(nuevo_orden)
+
+g43 <- st_sfc(st_multipoint(as.matrix(geometria_linea_43)))
+
+
+geometria_linea_44 <- data.frame(data$lineas[[7]])
+
+geometria_linea_44 <- geometria_linea_44 %>% select(nuevo_orden)
+
+g44 <- st_sfc(st_multipoint(as.matrix(geometria_linea_44)))
+
+
+geometria_linea_45 <- data.frame(data$lineas[[8]])
+
+geometria_linea_45 <- geometria_linea_45 %>% select(nuevo_orden)
+
+g45 <- st_sfc(st_multipoint(as.matrix(geometria_linea_45)))
+
+
+geometria_linea_46 <- data.frame(data$lineas[[9]])
+
+geometria_linea_46 <- geometria_linea_46 %>% select(nuevo_orden)
+
+g46 <- st_sfc(st_multipoint(as.matrix(geometria_linea_46)))
+
+
+geometria_linea_47 <- data.frame(data$lineas[[10]])
+
+geometria_linea_47 <- geometria_linea_47 %>% select(nuevo_orden)
+
+g47 <- st_sfc(st_multipoint(as.matrix(geometria_linea_47)))
+
+
 
 ```
 
 
 ```{r}
-geometria_linea_5 <- data.frame(data$lineas[[5]]) %>% 
-  select(lng, lat)
+geometria_linea_5 <- data.frame(data$lineas[[11]])
+
+geometria_linea_5 <- geometria_linea_5 %>% select(nuevo_orden)
+
 g5 <- st_sfc(st_multipoint(as.matrix(geometria_linea_5)))
 
 ```
 
 
 ```{r}
-geometria_linea_6 <- rbind(data.frame(data$lineas[[12]]), data.frame(data$lineas[[13]]), data.frame(data$lineas[[14]]), data.frame(data$lineas[[15]])) %>% 
-  select(lng, lat)
-g6 <- st_sfc(st_multipoint(as.matrix(geometria_linea_6)))
+geometria_linea_61 <- data.frame(data$lineas[[12]])
+
+geometria_linea_61 <- geometria_linea_61 %>% select(nuevo_orden)
+
+g61 <- st_sfc(st_multipoint(as.matrix(geometria_linea_61)))
+
+
+geometria_linea_62 <- data.frame(data$lineas[[13]])
+
+geometria_linea_62 <- geometria_linea_62 %>% select(nuevo_orden)
+
+g62 <- st_sfc(st_multipoint(as.matrix(geometria_linea_62)))
+
+
+geometria_linea_63 <- data.frame(data$lineas[[14]])
+
+geometria_linea_63 <- geometria_linea_63 %>% select(nuevo_orden)
+
+g63 <- st_sfc(st_multipoint(as.matrix(geometria_linea_63)))
+
+
+geometria_linea_64 <- data.frame(data$lineas[[15]])
+
+geometria_linea_64 <- geometria_linea_64 %>% select(nuevo_orden)
+
+g64 <- st_sfc(st_multipoint(as.matrix(geometria_linea_64)))
+
+
 
 ```
 
 
 ```{r}
-geometria_linea_7 <- data.frame(data$lineas[[16]]) %>% 
-  select(lng, lat)
+geometria_linea_7 <- data.frame(data$lineas[[16]])
+
+geometria_linea_7 <- geometria_linea_7 %>% select(nuevo_orden)
+
 g7 <- st_sfc(st_multipoint(as.matrix(geometria_linea_7)))
 
 ```
 
 
 ```{r}
-geometria_linea_8 <- data.frame(data$lineas[[17]]) %>% 
-  select(lng, lat)
+geometria_linea_8 <- data.frame(data$lineas[[17]])
+
+geometria_linea_8 <- geometria_linea_8 %>% select(nuevo_orden)
+
 g8 <- st_sfc(st_multipoint(as.matrix(geometria_linea_8)))
 ```
 
 
 ```{r}
-geometria_linea_9 <- data.frame(data$lineas[[18]]) %>% 
-  select(lng, lat)
+geometria_linea_9 <- data.frame(data$lineas[[18]])
+
+geometria_linea_9 <- geometria_linea_9 %>% select(nuevo_orden)
+
 g9 <- st_sfc(st_multipoint(as.matrix(geometria_linea_9)))
 
 ```
 
 
 ```{r}
-geometria_linea_10 <- data.frame(data$lineas[[19]]) %>% 
-  select(lng, lat)
+geometria_linea_10 <- data.frame(data$lineas[[19]])
+
+geometria_linea_10 <- geometria_linea_10 %>% select(nuevo_orden)
+
 g10 <- st_sfc(st_multipoint(as.matrix(geometria_linea_10)))
 
 ```
 
 
 ```{r}
-lista_geometrias <- list(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10)
+lista_geometrias <- list(g1, g2, g3, g41, g42, g43, g44, g45, g46, g47, g5, g61, g62, g63, g64, g7, g8, g9, g10)
 
 ```
 
@@ -176,27 +265,13 @@ lineas_t <- lineas %>%
   pivot_longer(starts_with("geometry"), names_to = "ID_Geometria", values_to = "geometry") %>%
   select(-ID_Geometria)  # Opcional, para quitar la columna de nombres
 
-
-# for (i in 1:10){
-#   
-#   df_g <- t(lista_geometrias[[i]])
-#   
-# 
-#   filas_como_cadenas <- apply(df_g, 1, function(x) paste(x, collapse = ","))
-# 
-#   g <- data.frame(t(filas_como_cadenas))
-#   
-#   lineas <- bind_rows(lineas, g)
-# 
-# }
-
 colnames(lineas) <- NULL
 
 ```
 
 ```{r}
-l <- data.frame(Valores = 1:10)
-colnames(l) <- "Línea"
+l <- data.frame(Valores = c(1, 2, 3, rep(4, 7), 5, rep(6, 4), 7, 8, 9, 10))
+colnames(l) <- "linea"
 
 ```
 
@@ -218,6 +293,23 @@ wiki <- wiki[1:10, c(2,3,4,5,6, 7)]
 nuevos_nombres <- c(colnames(wiki)[1], "Cabeceras_2", "Tipo",colnames(wiki)[4], "KM", "viajeros(2019)")
 
 colnames(wiki) <- nuevos_nombres
+
+
+indices_duplicar <- c(4, 6)
+
+# Duplicar las filas seleccionadas
+wiki <- rbind(wiki, wiki[indices_duplicar, ])
+wiki <- rbind(wiki, wiki[indices_duplicar, ])
+wiki <- rbind(wiki, wiki[indices_duplicar, ])
+
+wiki <- rbind(wiki, wiki[4, ])
+wiki <- rbind(wiki, wiki[4, ])
+wiki <- rbind(wiki, wiki[4, ])
+
+nuevos_indices <- c(1, 2, 3, 4, 11, 13, 15, 17, 18, 19, 5, 6, 12, 14, 16, 7, 8, 9, 10)
+
+wiki <- wiki[nuevos_indices, ]
+
 ```
 
 #lineas final:
@@ -227,12 +319,22 @@ lineas_final <- data.frame(l, lineas_colores, wiki, lineas_t)
 
 row.names(lineas_final) <- NULL
 
+lineas_final$color <- lineas_final$colores <- paste0("#", lineas_final$color)
+
 lineas_final$geometry <- st_cast(lineas_final$geometry, "LINESTRING")
 
 # Ahora intenta convertir a objeto sf
-lineas_final_sf <- st_as_sf(lineas_final) %>% 
-  mutate(color = paste0("#", color)) %>% 
-  st_set_crs(4326)
+lineas_final_sf <- st_as_sf(lineas_final) %>%
+  st_set_crs(4326) %>% 
+  select(-colores) %>% 
+  rename("viajeros_2019" = "viajeros.2019.",
+         "cabecera1" = "Cabeceras",
+         "cabecera2" = "Cabeceras_2",
+         "tipo" = "Tipo",
+         "n_estaciones" = "Estaciones",
+         "n_km" = "KM")
+
+
 ```
 
 
@@ -246,4 +348,5 @@ write.xlsx(estaciones_df, file = path_estaciones, rowNames = FALSE)
 path_lineas <- "../data/lineas/lineas.shp"
 
 st_write(lineas_final_sf, path_lineas)
+
 ```
