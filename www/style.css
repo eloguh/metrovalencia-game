@@ -1,0 +1,30 @@
+#sidebar {
+  box-sizing: border-box;
+  box-shadow: rgba(149, 157, 165, 0.6) 0px 1px 3px;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 10px;
+}
+#top_quakes_inputs {
+  height: auto;
+  margin-bottom: 5px;
+}
+#top_quakes {
+  max-height: 50vh;
+  overflow: auto;
+}
+.quake-container:hover {
+    background-color: gainsboro;
+    cursor: pointer;
+}
+#map, #content {
+  border-radius: 10px;
+  margin-right: 10px;
+}
+#footer{
+  padding-left: 5px;
+  text-align: center;
+}
+.root-54{
+  font-size: 20px;
+}
