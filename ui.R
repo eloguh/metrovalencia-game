@@ -13,11 +13,23 @@ header <- flexPanel(
 sidebar <- div(
   id = "sidebar",
   Separator("Busca la estación"),
-  searchInput( # iconProps = list(iconName = "TrainSolid"), validateOnLoad = F
-    "text", btnSearch = icon("train-subway"), width = "100%"),
+  searchInput("text", btnSearch = icon("train-subway"), width = "100%"),
   Separator("Estaciones encontradas"),
-  uiOutput('found_stations'),
-  Separator("Información sobre la estación"),
+  flexPanel(
+    id = "general_stats",
+    flex = c(1),
+    img(src = "./img/lines/L1.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L2.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L3.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L4.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L5.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L6.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L7.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L8.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L9.svg", style = "width: 24px; height:24px"),
+    img(src = "./img/lines/L10.svg", style = "width: 24px; height:24px")
+  ),
+  Separator("Información sobre la estación")
 )
 
 footer <- flexPanel(
