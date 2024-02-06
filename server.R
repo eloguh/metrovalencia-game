@@ -10,7 +10,7 @@ server <- function(input, output, session) {
       setView(lng = -0.38, lat = 39.475, zoom = 12)
   })
   
-  # Update dynamically the size of maps' objects based on map zoom
+  # Update dynamically the size of maps' objects based on map zoom; prueba
   observeEvent(
     eventExpr = input$map_zoom, {
       leafletProxy(
