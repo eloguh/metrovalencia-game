@@ -10,6 +10,8 @@ library(purrr)
 library(sf)
 library(readxl)
 library(shinyWidgets)
+library(stringi)
+
 
 # Read data
 lineas <- read_sf("./data/lineas/lineas.shp")
