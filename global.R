@@ -11,7 +11,6 @@ library(sf)
 library(readxl)
 library(shinyWidgets)
 library(stringi)
-library(stringdist)
 
 
 # Read data
