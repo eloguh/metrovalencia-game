@@ -13,4 +13,7 @@ library(shinyWidgets)
 
 # Read data
 lineas <- read_sf("./data/lineas/lineas.shp")
-estaciones <- read_excel("./data/estaciones.xlsx")
+estaciones <- read_excel("./data/estaciones.xlsx") %>% 
+  mutate(fill = "white")
+
+source("./functions/find_station.R", local=T, encoding = "UTF-8")
