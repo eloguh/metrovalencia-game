@@ -4,8 +4,8 @@ server <- function(input, output, session) {
     leaflet() %>%
       addProviderTiles(provider = "CartoDB.PositronNoLabels") %>%  
       addPolylines(data = lineas, color = ~color, opacity = 1, weight = 7) %>% 
-      addCircleMarkers(data = estaciones, lat = ~lat, lng = ~lng,
-                       popup = ~nombre, color = "gray", fillColor = "white",
+      addCircleMarkers(data = estaciones_mod(), lat = ~lat, lng = ~lng,
+                       popup = ~nombre, color = "gray", fillColor = ~fill,
                        fillOpacity = 1, radius = 3, weight = 2) %>% 
       setView(lng = -0.38, lat = 39.475, zoom = 12)
   })
@@ -28,7 +28,7 @@ server <- function(input, output, session) {
                                          input$map_zoom ==15 ~5, 
                                          input$map_zoom ==16 ~7, 
                                          input$map_zoom >=17 ~8)) %>% 
-        addCircleMarkers(data=estaciones,lng = ~lng, lat = ~lat, 
+        addCircleMarkers(data=estaciones_mod(),lng = ~lng, lat = ~lat, 
                          radius = case_when(input$map_zoom <=9 ~1, 
                                             input$map_zoom ==10 ~2, 
                                             input$map_zoom ==11 ~2, 
@@ -44,11 +44,32 @@ server <- function(input, output, session) {
                                             input$map_zoom ==14 ~2, 
                                             input$map_zoom >=15 ~3),
                          popup = ~nombre, color = "gray",
-                         fillColor = "white", fillOpacity = 1)
+                         fillColor = ~fill, fillOpacity = 1)
         
     }
   )
   
-  # Clean the search input when the text is entered
-  # observeEvent(input$text, {updateSearchInput(session, "text", value = "")})
+  # Check if the user guessed any station
+  correct_guess <- reactiveValues()
+  observeEvent(input$text, {
+    station_id <- find_station(input$text)
+    
+    if (station_id != -99){
+      # Clean the search input when the text is entered correctly
+      updateSearchInput(session, "text", value = "")
+      
+      if (!(station_id %in% correct_guess$list)){
+        correct_guess$list <- c(isolate(correct_guess$list), station_id)
+        
+        station <- estaciones %>% filter(id == station_id)
+        leafletProxy("map", session = session) %>%
+          flyTo(lng = station$lng, lat = station$lat, zoom = 14)
+      }
+    }
+  })
+  
+  estaciones_mod <- reactive({
+    estaciones %>% 
+      mutate(fill = ifelse(id %in% correct_guess$list, "red", fill))
+  })
 }
