@@ -29,6 +29,7 @@ sidebar <- div(
     img(src = "./img/lines/L9.svg", style = "width: 24px; height:24px"),
     img(src = "./img/lines/L10.svg", style = "width: 24px; height:24px")
   ),
+  dataTableOutput("stats"),
   Separator("Información sobre la estación")
 )
 

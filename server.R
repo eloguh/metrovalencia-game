@@ -10,6 +10,7 @@ server <- function(input, output, session) {
       setView(lng = -0.38, lat = 39.475, zoom = 12)
   })
   
+  
   # Update dynamically the size of maps' objects based on map zoom; prueba
   observeEvent(
     eventExpr = input$map_zoom, {
@@ -20,14 +21,14 @@ server <- function(input, output, session) {
         clearShapes() %>% 
         addPolylines(data = lineas, color = ~color, opacity = 1,
                      weight = case_when(input$map_zoom <=9 ~2, 
-                                         input$map_zoom ==10 ~2, 
-                                         input$map_zoom ==11 ~2, 
-                                         input$map_zoom ==12 ~3, 
-                                         input$map_zoom ==13 ~4, 
-                                         input$map_zoom ==14 ~4, 
-                                         input$map_zoom ==15 ~5, 
-                                         input$map_zoom ==16 ~7, 
-                                         input$map_zoom >=17 ~8)) %>% 
+                                        input$map_zoom ==10 ~2, 
+                                        input$map_zoom ==11 ~2, 
+                                        input$map_zoom ==12 ~3, 
+                                        input$map_zoom ==13 ~4, 
+                                        input$map_zoom ==14 ~4, 
+                                        input$map_zoom ==15 ~5, 
+                                        input$map_zoom ==16 ~7, 
+                                        input$map_zoom >=17 ~8)) %>% 
         addCircleMarkers(data=estaciones_mod(),lng = ~lng, lat = ~lat, 
                          radius = case_when(input$map_zoom <=9 ~1, 
                                             input$map_zoom ==10 ~2, 
@@ -45,7 +46,7 @@ server <- function(input, output, session) {
                                             input$map_zoom >=15 ~3),
                          popup = ~nombre, color = "gray",
                          fillColor = ~fill, fillOpacity = 1)
-        
+      
     }
   )
   
@@ -60,6 +61,20 @@ server <- function(input, output, session) {
       
       if (!(station_id %in% correct_guess$list)){
         correct_guess$list <- c(isolate(correct_guess$list), station_id)
+        
+        id_aciertos <- sapply(correct_guess$list, function(vec) vec[2])
+        acertados <- data.frame(id = id_aciertos) %>%
+          left_join(estaciones, by = "id")
+        ptot <- tot_prct(acertados)
+        pline <- line_prct(acertados)
+        
+        data <- data.frame(c(ptot, pline))
+        
+        output$stats <- renderDataTable({
+          
+          datatable(data)
+          
+        })
         
         station <- estaciones %>% filter(id == station_id)
         leafletProxy("map", session = session) %>%
