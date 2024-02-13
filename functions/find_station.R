@@ -52,18 +52,16 @@ find_coincidence <- function(left, right){
 
 #### Finding function
 find_station <- function(input){
+  ids <- estaciones$id
   lineas <- estaciones$nombre
   limit_lineas <- length(lineas)
   input_rebuilt <- formal_text(input)
   stations_rebuilt <- formal_text(lineas)
   
   coincide <- find_coincidence(input_rebuilt, stations_rebuilt)
-  if (is.numeric(coincide)){
-    if (coincide > limit_lineas){
-      good_coincide <- coincide - limit_lineas
-      return(coincide[good_coincide])
-    }
-    return(coincide)
+  if (coincide){
+    return(ids[coincide])
+  } else {
+    return(-99)
   }
-  return(-99)
 }
