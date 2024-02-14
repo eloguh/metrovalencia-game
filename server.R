@@ -1,4 +1,4 @@
-   server <- function(input, output, session) {
+server <- function(input, output, session) {
   # Metrovalencia: main map
   output$map <- renderLeaflet({
     leaflet() %>%
@@ -70,10 +70,9 @@
         
         data <- data.frame(c(ptot, pline))
         
-        output$stats <- renderDataTable({
-          
-          datatable(data)
-          
+        observe({
+          Sys.sleep(1)  # Simulando un proceso que toma tiempo
+          updateProgressBar(session, "progress", value = ptot)
         })
         
         station <- estaciones %>% filter(id == station_id)
