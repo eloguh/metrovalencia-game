@@ -11,6 +11,8 @@ library(sf)
 library(readxl)
 library(shinyWidgets)
 library(DT)
+library(shinyjs)
+library(htmlwidgets)
 
 N_TOTAL_ESTACIONES <- 147
 # Read data

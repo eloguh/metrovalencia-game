@@ -18,18 +18,22 @@ sidebar <- div(
   flexPanel(
     id = "general_stats",
     flex = c(1),
-    img(src = "./img/lines/L1.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L2.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L3.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L4.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L5.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L6.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L7.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L8.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L9.svg", style = "width: 24px; height:24px"),
-    img(src = "./img/lines/L10.svg", style = "width: 24px; height:24px")
+    tags$div(
+      style = "display: flex; flex-direction: column;",
+      img(src = "./img/lines/L1.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L2.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L3.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L4.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L5.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L6.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L7.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L8.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L9.svg", style = "width: 24px; height:24px"),
+      img(src = "./img/lines/L10.svg", style = "width: 24px; height:24px")
+    ),
+    progressBar(id = "progress", value = 0)
   ),
-  dataTableOutput("stats"),
+  
   Separator("Información sobre la estación")
 )
 
