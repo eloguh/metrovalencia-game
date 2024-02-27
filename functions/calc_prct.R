@@ -13,15 +13,15 @@ line_prct <- function(aciertos){
   N_LINEAS <- 10
   
   for (i in 1:N_LINEAS){
-    aciertos_lineas <- unlist(str_split(aciertos$lineas, pattern = ","))
+    aciertos_lineas <- unlist(strsplit(as.character(aciertos$lineas), split = ","))
     
-    num <- sum(aciertos_lineas == i)
+    num <- sum(as.numeric(aciertos_lineas) == i)
     n_aciertos <- append(n_aciertos, num)
     prct <- 100 * (num / N_ESTACIONES_POR_LINEA[i])
     prct_aciertos <- append(prct_aciertos, round(prct, digits = 2))
   }
   
-  line_prct <- data.frame(linea = 1:N_LINEAS, n_aciertos, prct_aciertos)
+  line_prct <- data.frame(linea = 1:N_LINEAS, n_aciertos, prct_aciertos, N_ESTACIONES_POR_LINEA)
   return(line_prct) 
 }
 
