@@ -11,6 +11,11 @@ header <- flexPanel(
 )
 
 sidebar <- div(
+  Separator("Información sobre la estación")
+  
+)
+
+sidebar_fake <- div(
   id = "sidebar",
   Separator("Busca la estación"),
   searchInput("text", btnSearch = icon("train-subway"), width = "100%"),
@@ -68,8 +73,8 @@ sidebar <- div(
     progressBar(id = "progress9", value = 0, display_pct = TRUE, status = "success"),
     progressBar(id = "progress10", value = 0, display_pct = TRUE, status = "success")
     )
-  ),
-  Separator("Información sobre la estación")
+  )
+  
 )
 
 footer <- flexPanel(
@@ -86,6 +91,6 @@ ui <- gridPage(
   
   header = header,
   sidebar = sidebar,
-  content = div(id="content", leafletOutput('map', height = "100%")),
+  content = div(id="content", sidebar_fake, leafletOutput('map', height = "100%")),
   footer = footer
 )
