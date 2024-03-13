@@ -71,6 +71,12 @@ server <- function(input, output, session) {
         
         data <- data.frame(c(ptot, pline))
         
+        output$frac_t <- renderText({
+          # Puedes colocar cualquier contenido aquí, por ejemplo, una variable
+          fr <- paste(sum(pline$n_aciertos), "de", N_TOTAL_ESTACIONES)
+          return(fr)
+        })
+        
         output$frac1 <- renderText({
           # Puedes colocar cualquier contenido aquí, por ejemplo, una variable
           fr <- paste(pline$n_aciertos[1], "de", N_ESTACIONES_POR_LINEA[1])
@@ -124,7 +130,7 @@ server <- function(input, output, session) {
         })
         
         observe({ 
-          updateProgressBar(session, "progress", value = ptot)
+          updateProgressBar(session, "progress-total", value = ptot)
           updateProgressBar(session, "progress1", value = pline$prct_aciertos[1])
           updateProgressBar(session, "progress2", value = pline$prct_aciertos[2])
           updateProgressBar(session, "progress3", value = pline$prct_aciertos[3])

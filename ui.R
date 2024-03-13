@@ -15,7 +15,14 @@ sidebar <- div(
   Separator("Busca la estación"),
   searchInput("text", btnSearch = icon("train-subway"), width = "100%"),
   Separator("Estaciones encontradas"),
+  flexPanel(
+    id = "tot_stats",
+    style = "height:auto",
+    div(textOutput("frac_t"), style = "margin-left: 5%; margin-bottom: 20.5px;"),
+    progressBar(id = "progress-total", value = 0, display_pct = TRUE, status = "success")
+  ),
   Separator(),
+  
   flexPanel(
     id = "general_stats",
     flex = c(1),
@@ -62,8 +69,6 @@ sidebar <- div(
     progressBar(id = "progress10", value = 0, display_pct = TRUE, status = "success")
     )
   ),
-  
-  progressBar(id = "progress", value = 0, display_pct = TRUE, status = "success"),
   Separator("Información sobre la estación")
 )
 

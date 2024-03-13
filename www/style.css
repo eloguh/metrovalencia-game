@@ -28,3 +28,34 @@
 .root-54{
   font-size: 20px;
 }
+
+#progress1.progress-bar-success{
+  background-color: #FEC601;
+}
+#progress2.progress-bar-success{
+  background-color: #E60096;
+}
+#progress3.progress-bar-success{
+  background-color: #DD052C;
+}
+#progress4.progress-bar-success{
+  background-color: #014A99;
+}
+#progress5.progress-bar-success{
+  background-color: #008F71;
+}
+#progress6.progress-bar-success{
+  background-color: #8884BF;
+}
+#progress7.progress-bar-success{
+  background-color: #F28D01;
+}
+#progress8.progress-bar-success{
+  background-color: #82CEE6;
+}
+#progress9.progress-bar-success{
+  background-color: #B8804F;
+}
+#progress10.progress-bar-success{
+  background-color: #B7DD79;
+}
