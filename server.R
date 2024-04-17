@@ -129,6 +129,20 @@ server <- function(input, output, session) {
           return(fr)
         })
         
+        if (sum(pline$n_aciertos) == N_TOTAL_ESTACIONES) {
+          shinyalert(
+            title = "¡Enhorabuena!",
+            text = "Has adivinado todas las estaciones.",
+            type = "success"
+          )
+        } else {
+          shinyalert(
+            title = "¡Acertado!",
+            text = "¡Has adivinado una estación!",
+            type = "success"
+          )
+        }
+        
         observe({ 
           updateProgressBar(session, "progress-total", value = ptot)
           updateProgressBar(session, "progress1", value = pline$prct_aciertos[1])
@@ -147,6 +161,13 @@ server <- function(input, output, session) {
         leafletProxy("map", session = session) %>%
           flyTo(lng = station$lng, lat = station$lat, zoom = 14)
       }
+    } else {
+      # Agregar notificación de estación incorrecta
+      shinyalert(
+        title = "Inténtalo de nuevo",
+        text = "Esa estación no es correcta. Por favor, intenta nuevamente.",
+        type = "error"
+      )
     }
   })
   
